@@ -94,6 +94,12 @@ export class NotesService {
     // Check if new note doesn't violate application constraints
     if (alias) {
       this.checkNoteIdOrAlias(alias);
+      // Check if the alias is a note id
+      if (await this.checkIfNoteIdIsUsed(alias)) {
+        throw new AlreadyInDBError(
+          `A note with the id '${alias}' already exists.`,
+        );
+      }
     }
     if (noteContent.length > this.noteConfig.maxDocumentLength) {
       throw new MaximumDocumentLengthExceededError();
@@ -277,6 +283,24 @@ export class NotesService {
         `A note with the alias '${noteIdOrAlias}' is forbidden by the administrator.`,
       );
     }
+  }
+
+  async checkIfNoteIdIsUsed(noteId: string): Promise<boolean> {
+    // Check if we already have a note with this id
+    const note = await this.noteRepository
+      .createQueryBuilder()
+      .where('note.publicId = :noteId')
+      .orWhere('note.id = :noteId')
+      .setParameter('noteId', noteId)
+      .getOne();
+    if (note !== null) {
+      this.logger.debug(
+        `A note with the alias '${noteId}' already exists.`,
+        'checkIfNoteIdIsUsed',
+      );
+      return true;
+    }
+    return false;
   }
 
   /**
