@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2023 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 'use client'
 /*
  * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
@@ -10,7 +16,6 @@ import { Logger } from '../../../utils/logger'
 import { LoadingScreen } from '../../application-loader/loading-screen/loading-screen'
 import { CommonErrorPage } from '../../error-pages/common-error-page'
 import { CustomAsyncLoadingBoundary } from '../async-loading-boundary/custom-async-loading-boundary'
-import { ShowIf } from '../show-if/show-if'
 import { CreateNonExistingNoteHint } from './create-non-existing-note-hint'
 import { useLoadNoteFromServer } from './hooks/use-load-note-from-server'
 import type { PropsWithChildren } from 'react'
@@ -59,9 +64,9 @@ export const NoteLoadingBoundary: React.FC<PropsWithChildren<NoteIdProps>> = ({ 
       <CommonErrorPage
         titleI18nKey={`${errorI18nKeyPrefix}.title`}
         descriptionI18nKey={`${errorI18nKeyPrefix}.description`}>
-        <ShowIf condition={error instanceof ApiError && error.statusCode === 404}>
+        {error instanceof ApiError && error.statusCode === 404 && (
           <CreateNonExistingNoteHint onNoteCreated={loadNoteFromServer} noteId={noteId} />
-        </ShowIf>
+        )}
       </CommonErrorPage>
     )
   }, [error, loadNoteFromServer, noteId])

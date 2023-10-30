@@ -1,10 +1,15 @@
+/*
+ * SPDX-FileCopyrightText: 2023 The HedgeDoc developers (see AUTHORS file)
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
 'use client'
 /*
  * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { ShowIf } from '../common/show-if/show-if'
 import { LandingLayout } from '../landing-layout/landing-layout'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
@@ -35,11 +40,11 @@ export const CommonErrorPage: React.FC<PropsWithChildren<CommonErrorPageProps>> 
         <h1>
           <Trans i18nKey={titleI18nKey} />
         </h1>
-        <ShowIf condition={!!descriptionI18nKey}>
+        {descriptionI18nKey !== undefined && (
           <h3>
             <Trans i18nKey={descriptionI18nKey} />
           </h3>
-        </ShowIf>
+        )}
         {children}
       </div>
     </LandingLayout>
