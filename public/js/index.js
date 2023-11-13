@@ -93,7 +93,7 @@ require('../css/extra.css')
 require('../css/slide-preview.css')
 require('../css/site.css')
 
-require('highlight.js/styles/github-gist.css')
+require('highlight.js/styles/github.css')
 require('./fix-aria-hidden-for-modals')
 
 let defaultTextHeight = 20
