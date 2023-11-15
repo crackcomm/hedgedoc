@@ -88,9 +88,13 @@
     position: relative;
     z-index: 2;
     max-width: 758px;
+    margin-bottom: 25px;
+    color: #777;
+}
+
+.ui-view-area > .ui-infobar {
     margin-top: 25px;
     margin-bottom: -25px;
-    color: #777;
 }
 
 .toc .invisable-node {
