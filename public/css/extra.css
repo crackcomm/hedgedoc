@@ -414,3 +414,8 @@ small .dropdown a:focus, small .dropdown a:hover {
         font-size: 12px !important;
     }
 }
+
+.expand-toggle, .back-to-top, .go-to-bottom {
+    display: none !important;
+}
+
