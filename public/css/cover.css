@@ -305,6 +305,11 @@ input {
 	opacity: 1;
     color: #d43f3a;
 }
+.ui-locale {
+    font-size: 12px;
+    padding: 0px 6px;
+    height: 26px;
+}
 .ui-or {
     margin: 5px;
 }
