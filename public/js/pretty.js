@@ -72,6 +72,7 @@ updateLastChange()
 
 const url = window.location.pathname
 $('.ui-edit').attr('href', `${url}/edit`)
+const doc = document.getElementById('doc')
 const toc = $('.ui-toc')
 const tocAffix = $('.ui-affix-toc')
 const tocDropdown = $('.ui-toc-dropdown')
@@ -87,7 +88,10 @@ function generateScrollspy () {
     target: ''
   })
   $(document.body).scrollspy('refresh')
-  if (enoughForAffixToc) {
+  if (window.innerHeight >= doc.scrollHeight) {
+    toc.hide()
+    tocAffix.hide()
+  } else if (enoughForAffixToc) {
     toc.hide()
     tocAffix.show()
   } else {

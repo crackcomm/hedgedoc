@@ -68,6 +68,7 @@
         }
 
         smoothHashScroll();
+        var doc = document.getElementById('doc');
         var toc = $('.ui-toc');
         var tocAffix = $('.ui-affix-toc');
         var tocDropdown = $('.ui-toc-dropdown');
@@ -83,7 +84,10 @@
                 target: ''
             });
             $(document.body).scrollspy('refresh');
-            if (enoughForAffixToc) {
+            if (window.innerHeight >= doc.scrollHeight) {
+                toc.hide();
+                tocAffix.hide();
+            } else if (enoughForAffixToc) {
                 toc.hide();
                 tocAffix.show();
             } else {
