@@ -2145,7 +2145,7 @@ function updatePermission (newPermission) {
       title = 'Only owner can edit (forbid guest)'
       break
     case 'private':
-      label = '<i class="fa fa-hand-stop-o"></i> Private'
+      label = '<i class="fa fa-eye-slash"></i> Private'
       title = 'Only owner can view & edit'
       break
   }
