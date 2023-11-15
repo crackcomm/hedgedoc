@@ -117,15 +117,20 @@ $('.ui-history').click(() => {
 })
 
 function checkHistoryList () {
-  if ($('#history-list').children().length > 0) {
+  const historyLen = historyList.items.length;
+  if (historyLen > options.page) {
     $('.pagination').show()
+  } else {
+    $('.pagination').hide()
+  }
+  if (historyLen > 0) {
     $('.ui-nohistory').hide()
     $('.ui-import-from-browser').hide()
-  } else if ($('#history-list').children().length === 0) {
+  } else if (historyLen === 0) {
     $('.pagination').hide()
     $('.ui-nohistory').slideDown()
     getStorageHistory(data => {
-      if (data && data.length > 0 && getLoginState() && historyList.items.length === 0) {
+      if (data && data.length > 0 && getLoginState() && historyLen === 0) {
         $('.ui-import-from-browser').slideDown()
       }
     })
