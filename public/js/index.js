@@ -1400,9 +1400,23 @@ let revisionDeleteAnnotation = null
 const revisionList = ui.modal.revision.find('.ui-revision-list')
 let revision = null
 let revisionTime = null
+function addDeltaToRevisions(revisions) {
+  for (let i = 0; i < revisions.length - 1; i++) {
+    const currentLength = revisions[i].length;
+    const previousLength = revisions[i + 1].length;
+
+    revisions[i].delta = currentLength - previousLength;
+  }
+
+  // Adding delta for the last entry (empty revision)
+  revisions[revisions.length - 1].delta = revisions[revisions.length - 1].length;
+
+  return revisions;
+}
 ui.modal.revision.on('show.bs.modal', function (e) {
   $.get(noteurl + '/revision')
     .done(function (data) {
+      addDeltaToRevisions(data.revision)
       parseRevisions(data.revision)
       initRevisionViewer()
     })
@@ -1438,15 +1452,13 @@ function parseRevisions (_revisions) {
       const item = $('<a class="list-group-item"></a>')
       item.attr('data-revision-time', revision.time)
       if (lastRevision === revision.time) item.addClass('active')
-      const itemHeading = $('<h5 class="list-group-item-heading"></h5>')
-      itemHeading.html(
-        '<i class="fa fa-clock-o"></i> ' + moment(revision.time).format('llll')
-      )
-      const itemText = $('<p class="list-group-item-text"></p>')
-      itemText.html(
-        '<i class="fa fa-file-text"></i> Length: ' + revision.length
-      )
-      item.append(itemHeading).append(itemText)
+      const deltaClass = revision.delta > 0 ? 'delta-insert' : 'delta-delete'
+      const deltaSign = revision.delta > 0 ? '+' : ''
+      item.html(
+        '<i class="fa fa-clock-o"></i> ' + moment(revision.time).format('MMM D, YYYY, hh:mm') +
+        ' <small>' + moment(revision.time).fromNow() + '</small>' +
+        (revision.delta === 0 ? '' : ` <span class="badge ${deltaClass}">${deltaSign}${revision.delta}</span>`)
+      );
       item.click(function (e) {
         const time = $(this).attr('data-revision-time')
         selectRevision(time)

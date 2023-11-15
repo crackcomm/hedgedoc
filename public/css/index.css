@@ -622,6 +622,28 @@ div[contenteditable]:empty:not(:focus):before{
     background-color: #212121;
 }
 
+.delta-delete {
+    background-color: #d9534f !important;
+}
+
+.delta-insert {
+    background-color: #5cb85c !important;
+}
+
+.ui-revision-list .list-group-item {
+    font-size: 80% !important;
+}
+
+.ui-revision-list .badge {
+    font-size: 80% !important;
+}
+
+@media (min-width: 992px) {
+    .modal-lg {
+        width: 980px;
+    }
+}
+
 @media print {
     body {
         padding-top: 0 !important;
