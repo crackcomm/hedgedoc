@@ -1708,7 +1708,8 @@ function generateScrollspy () {
   })
   $(document.body).scrollspy('refresh')
   ui.area.view.scrollspy('refresh')
-  if (window.innerHeight >= ui.area.view.prop('scrollHeight')) {
+  const docHeight = ui.area.view.prop('scrollHeight');
+  if (window.innerHeight >= (docHeight / 4)) {
     ui.toc.toc.hide()
     ui.toc.affix.hide()
   } else if (enoughForAffixToc) {

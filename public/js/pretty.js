@@ -88,7 +88,7 @@ function generateScrollspy () {
     target: ''
   })
   $(document.body).scrollspy('refresh')
-  if (window.innerHeight >= doc.scrollHeight) {
+  if (window.innerHeight >= (doc.scrollHeight / 4)) {
     toc.hide()
     tocAffix.hide()
   } else if (enoughForAffixToc) {
